@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Windows 98 Apps</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/98.css/dist/98.min.css">
+  <style>
+    /* General styling */
+    body {
+      background-color: #008080; /* Windows 98 teal background */
+      margin: 0;
+      padding: 0;
+      font-family: 'MS Sans Serif', sans-serif;
+      color: white;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Desktop */
+    .desktop {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Icons */
+    .icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 40px;
+      cursor: pointer;
+      width: 32px;
+    }
+
+    .icon img {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 5px;
+    }
+
+    .icon p {
+      margin: 0;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .icon:hover {
+      background-color: #c0c0c0; /* Highlight effect */
+      padding: 2px;
+    }
+
+    /* Taskbar */
+    .taskbar {
+      background-color: #c0c0c0;
+      border-top: 2px solid #fff;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0 10px;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .start-button {
+      background: url('https://upload.wikimedia.org/wikipedia/commons/5/5a/Windows_98_Logo.svg') no-repeat 5px center;
+      background-size: 20px;
+      padding: 5px 20px 5px 35px;
+      font-size: 12px;
+      border: 2px solid #000;
+      color: #000;
+      cursor: pointer;
+    }
+
+    .start-button:hover {
+      background-color: #fff;
+    }
+
+    .clock {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        width: 100px;
+        height: 30px;
+        background-color: #c0c0c0;
+        border: 2px solid black;
+        font-size: 14px; /* Adjusted font size */
+        font-family: 'MS Sans Serif', sans-serif;
+        text-align: center;
+        box-shadow: inset -1px -1px 0 #fff, inset 1px 1px 0 #808080;
+        margin-left: auto; /* Added margin-left */
+    }
+
+    /* Start Menu */
+    .start-menu {
+      position: absolute;
+      bottom: 40px;
+      left: 10px;
+      background-color: #c0c0c0;
+      border: 2px solid #000;
+      width: 200px;
+      display: none;
+      flex-direction: column;
+    }
+
+    .start-menu-item {
+      padding: 5px 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .start-menu-item:hover {
+      background-color: #000;
+      color: #fff;
+    }
+
+    /* Window styling */
+    .window {
+      position: absolute;
+      background: #c0c0c0;
+      border: 2px solid #000;
+      padding: 5px;
+      width: 300px; /* Fixed initial size */
+      height: 200px;
+      top: 50px;
+      left: 50px;
+      box-sizing: border-box;
+      display: none; /* Hidden initially */
+      z-index: 0; /* Windows appear in the order they were opened */
+      resize: both;
+      overflow: auto;
+    }
+
+    .window .title-bar {
+      background: #000080;
+      color: white;
+      padding: 5px;
+      font-size: 14px;
+      cursor: move;
+      user-select: none;
+    }
+
+    .window .buttons {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .window .buttons button {
+      background-color: #c0c0c0;
+      border: 1px solid #000;
+      padding: 2px 6px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .window .content {
+      margin-top: 20px;
+      height: calc(100% - 40px);
+      overflow: auto;
+    }
+
+    .window .buttons button:hover {
+      background-color: #808080;
+    }
+
+    /* Taskbar App Button */
+    .taskbar .app-btn {
+      display: flex;
+      align-items: center;
+      padding: 5px;
+      font-size: 12px;
+      background-color: #c0c0c0;
+      border: 1px solid #000;
+      cursor: pointer;
+      margin-right: 5px;
+    }
+
+    .taskbar .app-btn:hover {
+      background-color: #fff;
+    }
+
+    /* Resize handle for window resizing */
+    .window-resize-handle {
+      width: 15px;
+      height: 15px;
+      background-color: #000;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      cursor: se-resize;
+    }
+  </style>
+</head>
+<body>
+  <!-- Desktop -->
+  <div class="desktop">
+    <div class="icon" onclick="openApp('app1')">
+      <img src="https://i.postimg.cc/bJ45szJy/app1.png" alt="App 1">
+      <p>Paint</p>
+    </div>
+    <div class="icon" onclick="openApp('app2')">
+      <img src="app2.png" alt="App 2">
+      <p>Sound Recorder</p>
+    </div>
+    <div class="icon" onclick="openApp('app3')">
+      <img src="https://i.postimg.cc/RhfDtj6c/app3.png" alt="App 3">
+      <p>Luna</p>
+    </div>
+    <div class="icon" onclick="openApp('app4')">
+      <img src="https://i.postimg.cc/xjb7Bbxc/app4.png" alt="App 4">
+      <p>Notepad</p>
+    </div>
+    <div class="icon" onclick="openApp('app5')">
+      <img src="https://i.postimg.cc/5NdGJNTp/app5.png" alt="App 5">
+      <p>Poem</p>
+    </div>
+  </div>
+
+<!-- Taskbar -->
+<div class="taskbar">
+  <button class="start-button" onclick="toggleStartMenu()">
+    <img src="https://i.postimg.cc/t4DmFdTm/pngwing-com.png" alt="Start Icon" style="width: 16px; height: 16px; margin-right: 5px;">
+    Start
+  </button>
+  <div class="clock" id="clock"></div>
+  <div id="taskbarIcons"></div>
+</div>
+
+  <!-- Start Menu -->
+  <div class="start-menu" id="startMenu">
+    <div class="start-menu-item">Paint</div>
+    <div class="start-menu-item">Sound Recorder</div>
+    <div class="start-menu-item">Luna</div>
+    <div class="start-menu-item">Notepad</div>
+    <div class="start-menu-item">Poem</div>
+  </div>
+
+  <!-- App Windows (hidden initially) -->
+  <div id="app1" class="window">
+    <div class="title-bar">
+      Paint
+      <div class="buttons">
+        <button onclick="closeWindow('app1')">X</button>
+        <button onclick="minimizeWindow('app1')">-</button>
+      </div>
+    </div>
+    <div class="content">
+      <iframe src="https://3abath.github.io/paint/" title="Paint App" class="iframe-content" style="width: 100%; height: 100%;"></iframe>
+    </div>
+    <div class="window-resize-handle" onmousedown="startResizing(event, 'app1')"></div>
+  </div>
+
+  <div id="app2" class="window">
+    <div class="title-bar">
+      Sound Recorder
+      <div class="buttons">
+        <button onclick="closeWindow('app2')">X</button>
+        <button onclick="minimizeWindow('app2')">-</button>
+      </div>
+    </div>
+    <div class="content">
+      <iframe src="https://98.js.org/programs/sound-recorder/" title="Sound Recorder" class="iframe-content" style="width: 100%; height: 100%;"></iframe>
+    </div>
+    <div class="window-resize-handle" onmousedown="startResizing(event, 'app2')"></div>
+  </div>
+
+  <div id="app3" class="window">
+    <div class="title-bar">
+      Luna
+      <div class="buttons">
+        <button onclick="closeWindow('app3')">X</button>
+        <button onclick="minimizeWindow('app3')">-</button>
+      </div>
+    </div>
+    <div class="content">
+      <iframe src="https://3abath.github.io/mariem/" title="Luna" class="iframe-content" style="width: 100%; height: 100%;"></iframe>
+    </div>
+    <div class="window-resize-handle" onmousedown="startResizing(event, 'app3')"></div>
+  </div>
+
+  <div id="app4" class="window">
+    <div class="title-bar">
+      Notepad
+      <div class="buttons">
+        <button onclick="closeWindow('app4')">X</button>
+        <button onclick="minimizeWindow('app4')">-</button>
+      </div>
+    </div>
+    <div class="content">
+      <iframe src="https://3abath.github.io/notepad/" title="Notepad" class="iframe-content" style="width: 100%; height: 100%;"></iframe>
+    </div>
+    <div class="window-resize-handle" onmousedown="startResizing(event, 'app4')"></div>
+  </div>
+
+  <div id="app5" class="window">
+    <div class="title-bar">
+      Poem
+      <div class="buttons">
+        <button onclick="closeWindow('app5')">X</button>
+        <button onclick="minimizeWindow('app5')">-</button>
+      </div>
+    </div>
+    <div class="content">
+      <iframe src="https://3abath.github.io/poem/" title="Poem" class="iframe-content" style="width: 100%; height: 100%;"></iframe>
+    </div>
+    <div class="window-resize-handle" onmousedown="startResizing(event, 'app5')"></div>
+  </div>
+
+  <script>
+    // App Management (Open, Minimize, Close)
+    function openApp(appId) {
+      const app = document.getElementById(appId);
+      app.style.display = 'block';
+      createTaskbarButton(appId);
+    }
+
+    function closeWindow(appId) {
+      const app = document.getElementById(appId);
+      app.style.display = 'none';
+      removeTaskbarButton(appId);
+    }
+
+    function createTaskbarButton(appId) {
+      const taskbar = document.getElementById('taskbarIcons');
+      if (!taskbar.querySelector(`#taskbar-${appId}`)) {
+        const button = document.createElement('div');
+        button.id = `taskbar-${appId}`;
+        button.classList.add('app-btn');
+        button.innerText = appId;
+        button.onclick = () => openApp(appId);
+        taskbar.appendChild(button);
+      }
+    }
+
+    function removeTaskbarButton(appId) {
+      const taskbar = document.getElementById('taskbarIcons');
+      const button = taskbar.querySelector(`#taskbar-${appId}`);
+      if (button) {
+        taskbar.removeChild(button);
+      }
+    }
+
+    function toggleStartMenu() {
+      const startMenu = document.getElementById('startMenu');
+      startMenu.style.display = startMenu.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    // Minimize Window
+    function minimizeWindow(appId) {
+      const app = document.getElementById(appId);
+      app.style.display = 'none';
+      const taskbar = document.getElementById('taskbarIcons');
+      const appBtn = taskbar.querySelector(`#taskbar-${appId}`);
+      if (appBtn) {
+        appBtn.classList.add('minimized');
+      }
+    }
+
+    // Window Resizing (simplified)
+    let resizingAppId = null;
+
+    function startResizing(event, appId) {
+      resizingAppId = appId;
+      document.addEventListener('mousemove', resizeWindow);
+      document.addEventListener('mouseup', stopResizing);
+    }
+
+    function resizeWindow(event) {
+      const app = document.getElementById(resizingAppId);
+      app.style.width = event.clientX - app.offsetLeft + 'px';
+      app.style.height = event.clientY - app.offsetTop + 'px';
+    }
+
+    function stopResizing() {
+      document.removeEventListener('mousemove', resizeWindow);
+      document.removeEventListener('mouseup', stopResizing);
+    }
+    function updateClock() {
+      const clock = document.getElementById('clock');
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      clock.textContent = `${hours}:${minutes}`;
+    }
+  
+    setInterval(updateClock, 1000); // Update the clock every second
+    updateClock(); // Initial call to display the clock immediately
+  </script>
+</body>
+</html>
