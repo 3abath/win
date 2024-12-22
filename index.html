@@ -6,6 +6,92 @@
   <title>Windows 98 Apps</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/98.css/dist/98.min.css">
   <style>
+/* Dark Mode Base */
+body.dark-mode {
+  background-color: #2d2d2d; /* Dark slate background */
+  color: #d1d1d1; /* Light gray text */
+  font-family: "MS Sans Serif", sans-serif; /* Classic Windows font */
+}
+
+/* Window Elements */
+.window.dark-mode {
+  background-color: #3c3c3c; /* Darker gray window background */
+  border: 2px solid #707070; /* Classic 3D border color */
+  box-shadow: inset -1px -1px 0px #606060, inset 1px 1px 0px #a8a8a8; /* 3D effect */
+  color: #ffffff; /* White text for content */
+}
+
+.window.dark-mode .title-bar {
+  background: linear-gradient(to right, #4a4a4a, #3a3a3a); /* Subtle gradient */
+  color: #ffffff;
+  padding: 4px;
+  text-shadow: 1px 1px #000000; /* Slight shadow for classic effect */
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Desktop Icons */
+.desktop-icon.dark-mode {
+  background-color: #4a4a4a; /* Dark gray for icon background */
+  border: 1px solid #707070; /* Light border for 3D effect */
+  box-shadow: inset -1px -1px 0px #505050, inset 1px 1px 0px #909090; /* Inner shadow */
+  color: #e0e0e0; /* Light text */
+  padding: 6px;
+  margin: 5px;
+  border-radius: 4px; /* Subtle rounding for a modern touch */
+}
+
+/* Taskbar */
+.taskbar.dark-mode {
+  background-color: #2b2b2b; /* Dark taskbar */
+  color: #ffffff; /* White text */
+  border-top: 2px solid #505050; /* Slight 3D border */
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.taskbar.dark-mode .start-button {
+  background-color: #444444; /* Dark button background */
+  border: 2px solid #707070; /* Classic border */
+  box-shadow: inset -1px -1px 0px #505050, inset 1px 1px 0px #a8a8a8; /* Pressed effect */
+  color: #ffffff;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Start Menu */
+.start-menu.dark-mode {
+  background-color: #3b3b3b; /* Dark gray menu */
+  border: 2px solid #707070; /* Classic border */
+  box-shadow: -1px -1px 0px #505050, 1px 1px 0px #a8a8a8; /* Outer shadow for depth */
+  color: #ffffff;
+  padding: 10px;
+  width: 200px;
+  position: absolute;
+  bottom: 50px;
+  left: 10px;
+}
+
+/* Buttons */
+button.dark-mode {
+  background-color: #4a4a4a; /* Button background */
+  color: #ffffff; /* White text */
+  border: 2px solid #707070;
+  box-shadow: inset -1px -1px 0px #505050, inset 1px 1px 0px #a8a8a8;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+button.dark-mode:hover {
+  background-color: #5a5a5a; /* Slightly lighter on hover */
+}
+
+  
     /* General styling */
     body {
       background-color: #008080; /* Windows 98 teal background */
@@ -243,6 +329,9 @@
   <div id="taskbarIcons"></div>
 </div>
 
+<button id="darkModeToggle" style="position: fixed; top: 10px; right: 10px;">Toggle Dark Mode</button>
+
+
   <!-- Start Menu -->
   <div class="start-menu" id="startMenu">
     <div class="start-menu-item">Paint</div>
@@ -418,6 +507,20 @@
   
     setInterval(updateClock, 1000); // Update the clock every second
     updateClock(); // Initial call to display the clock immediately
+
+    const toggleDarkMode = () => {
+      document.body.classList.toggle('dark-mode');
+  
+      // Optional: Toggle other elements
+      document.querySelectorAll('.window').forEach(el => el.classList.toggle('dark-mode'));
+      document.querySelectorAll('.desktop-icon').forEach(el => el.classList.toggle('dark-mode'));
+      document.querySelector('.taskbar').classList.toggle('dark-mode');
+      document.querySelector('.start-menu').classList.toggle('dark-mode');
+  };
+  
+  // Add event listener for a button or keyboard shortcut to toggle dark mode
+  document.querySelector('#darkModeToggle').addEventListener('click', toggleDarkMode);
+  
   </script>
 </body>
 </html>
